@@ -1,0 +1,278 @@
+:root {
+            --primary-green: #4ade80;
+            --dark-green: #14532d;
+            --medium-green: #3f6251;
+            --background-color: #050e09;
+            --text-color: #e2e8f0;
+            --controls-bg: rgba(10, 20, 15, 0.75);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 20px 40px -10px rgba(74, 222, 128, 0.3);
+            background-color: #000; /* Added for professional letterboxing */
+            margin-bottom: 50px;
+        }
+
+        .video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain; /* This is the key fix for scaling */
+        }
+
+        /* Video Controls Styling */
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 10px;
+            background: var(--controls-bg);
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        .video-container:hover .video-controls,
+        .video-controls.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .bottom-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 5px;
+        }
+
+        .left-controls, .right-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .control-button {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .control-button:hover {
+            color: var(--primary-green);
+            transform: scale(1.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Volume controls */
+        .volume-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Time display */
+        .time-display {
+            font-size: 0.7em;
+            font-weight: 400;
+            user-select: none;
+        }
+
+        /* Range Sliders (Progress and Volume) */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        /* Progress Bar */
+        #progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--medium-green);
+            border-radius: 10px;
+            transition: height 0.2s ease;
+        }
+
+        #progress-bar:hover {
+            height: 8px;
+        }
+
+        input[type="range"]::-webkit-slider-runnable-track {
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--primary-green);
+            border: 2px solid var(--background-color);
+            margin-top: -5px; /* Adjust to center thumb on the track */
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .video-controls:hover #progress-bar::-webkit-slider-thumb,
+        #progress-bar:focus::-webkit-slider-thumb {
+            opacity: 1;
+        }
+
+        /* Volume Slider */
+        #volume-slider {
+            width: 60px;
+            height: 5px;
+        }
+
+        #volume-slider::-webkit-slider-runnable-track {
+            background-color: var(--medium-green);
+        }
+
+        #volume-slider::-webkit-slider-thumb {
+             margin-top: -5.5px;
+        }
+
+
+
+        /* Container scales fluidly */
+.container {
+    width: 100%;
+    max-width: 900px;
+    padding: 0 1rem;
+}
+
+/* Video maintains 16:9 ratio */
+.video-container {
+    aspect-ratio: 16 / 9; /* modern, clean responsive video */
+    margin-bottom: 2rem;
+}
+
+/* Controls: adjust padding for small screens */
+.video-controls {
+    padding: 8px;
+}
+
+/* Buttons auto-scale */
+.control-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Time display slightly larger for readability */
+.time-display {
+    font-size: 0.75rem;
+}
+
+/* 🎯 Breakpoints */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .left-controls, .right-controls {
+        gap: 10px;
+    }
+
+    #volume-slider {
+        width: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .bottom-controls {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .left-controls, .right-controls {
+        gap: 8px;
+    }
+
+    #volume-slider {
+        width: 40px;
+    }
+
+    .time-display {
+        font-size: 0.65rem;
+    }
+
+    .control-button svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media (max-width: 320px) {
+    .bottom-controls {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .time-display {
+        font-size: 0.6rem;
+    }
+
+    #volume-slider {
+        width: 35px;
+    }
+}
+
